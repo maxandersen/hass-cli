@@ -7,8 +7,89 @@ instance directly from the command-line.
 
 Examples:
 
+Get state of a entity:
+
 .. code:: bash
-hass-cli 
+$ hass-cli get state sensor
+hass-cli  get state light.guestroom_light                                                                                                                                                                       ◼
+{
+  "attributes": {
+    "friendly_name": "Guestroom Light",
+    "is_deconz_group": false,
+    "supported_features": 61
+  },
+  "context": {
+    "id": "e257a0f15fe74579b4a693de65ed618b",
+    "user_id": "4c7c32b2934f4deeb346bf8017e2bf28"
+  },
+  "entity_id": "light.guestroom_light",
+  "last_changed": "2018-11-18T21:48:20.279802+00:00",
+  "last_updated": "2018-11-18T21:48:20.279802+00:00",
+  "state": "off"
+}
+..
+
+If you prefer yaml you can do:
+
+.. code:: bash
+$ hass-cli -o yaml get state light.guestroom_light
+attributes:
+  friendly_name: Guestroom Light
+  is_deconz_group: false
+  supported_features: 61
+context:
+  id: e257a0f15fe74579b4a693de65ed618b
+  user_id: 4c7c32b2934f4deeb346bf8017e2bf28
+entity_id: light.guestroom_light
+last_changed: '2018-11-18T21:48:20.279802+00:00'
+last_updated: '2018-11-18T21:48:20.279802+00:00'
+state: 'off'
+..
+
+You can edit state via an editor:
+
+.. code:: bash
+$ hass-cli edit state light.guestroom_light
+..
+
+This will open the current state in your favorite editor and any changes you save will
+be used for an update. 
+
+You can also explicitly create/edit via the `--json` flag:
+
+.. code:: bash
+$ hass-cli edit state sensor.test --json='{ "state":"off"}'
+..
+
+Auto-completion
+###############
+
+For zsh:
+
+.. code:: bash
+eval "$(_HASS_CLI_COMPLETE=source_zsh hass-cli)"
+..
+
+For bash:
+
+.. code:: bash
+eval "$(_FOO_BAR_COMPLETE=source foo-bar)"
+..
+
+Once enable there is autocompletion for commands and for certain attributes like entities:
+
+.. code:: bash
+$ hass-cli get state light.<TAB>                                                                                                                                                                    ⏎ ✱ ◼
+light.kitchen_light_5          light.office_light             light.basement_light_4         light.basement_light_9         light.dinner_table_light_4     light.winter_garden_light_2    light.kitchen_light_2
+light.kitchen_table_light_1    light.hallroom_light_2         light.basement_light_5         light.basement_light_10        light.dinner_table_wall_light  light.winter_garden_light_4    light.kitchen_table_light_2
+light.kitchen_light_1          light.hallroom_light_1         light.basement_light_6         light.small_bathroom_light     light.dinner_table_light_5     light.winter_garden_light_3    light.kitchen_light_4
+light.kitchen_light_6          light.basement_light_1         light.basement_light_7         light.dinner_table_light_1     light.dinner_table_light_6     light.hallroom_light_4
+light.guestroom_light          light.basement_light_stairs    light.basement_light_2         light.hallroom_light_5         light.dinner_table_light_3     light.winter_garden_light_5
+light.hallroom_light_3         light.basement_light_3         light.basement_light_8         light.dinner_table_light_2     light.winter_garden_light_1    light.kitchen_light_3
+...
+
+help
+####
 
 .. code:: bash
 Usage: hass-cli [OPTIONS] COMMAND [ARGS]...
@@ -39,6 +120,9 @@ Clone the git repository and
 
     $ pip3 install --editable .
 
-A hard requirement is that ``hass-cli`` needs to support Python 3.4 because
-Home Assistant is able to run with Python 3.4.2.
 
+
+Acknowledgements
+################
+
+This code was heavily inspired by @fabaff <home-assistant-cli https://github.com/fabaff/home-assistant-cli> prototype.
