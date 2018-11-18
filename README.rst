@@ -49,7 +49,7 @@ If you prefer yaml you can do:
 You can edit state via an editor:
 
 .. code:: bash
-  $ hass-cli edit state light.guestroom_light
+    $ hass-cli edit state light.guestroom_light
 ..
 
 This will open the current state in your favorite editor and any changes you save will
