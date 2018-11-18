@@ -10,23 +10,23 @@ Examples:
 Get state of a entity:
 
 .. code:: bash
-    $ hass-cli get state sensor
-    hass-cli  get state light.guestroom_light                                                                                                                                                                       ◼
-    {
-      "attributes": {
-        "friendly_name": "Guestroom Light",
-        "is_deconz_group": false,
-        "supported_features": 61
-      },
-      "context": {
-        "id": "e257a0f15fe74579b4a693de65ed618b",
-        "user_id": "4c7c32b2934f4deeb346bf8017e2bf28"
-      },
-      "entity_id": "light.guestroom_light",
-      "last_changed": "2018-11-18T21:48:20.279802+00:00",
-      "last_updated": "2018-11-18T21:48:20.279802+00:00",
-      "state": "off"
-    }
+  $ hass-cli get state sensor
+  hass-cli  get state light.guestroom_light                                                                                                                                                                       ◼
+  {
+    "attributes": {
+      "friendly_name": "Guestroom Light",
+      "is_deconz_group": false,
+      "supported_features": 61
+    },
+    "context": {
+    "id": "e257a0f15fe74579b4a693de65ed618b",
+    "user_id": "4c7c32b2934f4deeb346bf8017e2bf28"
+    },
+  "entity_id": "light.guestroom_light",
+  "last_changed": "2018-11-18T21:48:20.279802+00:00",
+  "last_updated": "2018-11-18T21:48:20.279802+00:00",
+  "state": "off"
+}
 ..
 
 If you prefer yaml you can do:
