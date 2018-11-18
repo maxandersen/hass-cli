@@ -1,0 +1,25 @@
+"""Discovery plugin for Home Assistant CLI (hass-cli)."""
+import click
+
+
+from homeassistant_cli.cli import pass_context
+
+
+@click.command('discover')
+@click.option('--raw', is_flag=True, help="Include raw data found during scan.")
+@pass_context
+def cli(ctx,raw):
+    """Discovery for the local network."""
+    from netdisco.discovery import NetworkDiscovery
+
+    click.echo("Running discovery on network (might take a while)...")
+    netdiscovery = NetworkDiscovery()
+    netdiscovery.scan()
+
+    for device in netdiscovery.discover():
+        print(device, netdiscovery.get_info(device))
+
+    if raw:
+        netdiscovery.print_raw_data()
+
+    netdiscovery.stop()

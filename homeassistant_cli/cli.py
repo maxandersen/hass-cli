@@ -4,7 +4,8 @@ import sys
 
 import click
 
-from homeassistant_cli.const import PACKAGE_NAME, __version__
+from homeassistant_cli.const import DEFAULT_SERVER, DEFAULT_TIMEOUT, PACKAGE_NAME, __version__
+from homeassistant_cli.config import Configuration
 
 CONTEXT_SETTINGS = dict(auto_envvar_prefix='HOMEASSISTANT')
 
@@ -23,6 +24,7 @@ class HomeAssistantCli(click.MultiCommand):
             if filename.endswith('.py') and not filename.startswith('__'):
                 rv.append(filename[:-3])
         rv.sort()
+        
         return rv
 
     def get_command(self, ctx, name):
@@ -38,13 +40,21 @@ class HomeAssistantCli(click.MultiCommand):
 @click.command(cls=HomeAssistantCli, context_settings=CONTEXT_SETTINGS)
 @click.version_option(__version__)
 @click.option('--server', '-s',
-              help='The URL of Home Assistant instance.', default="http://localhost:8123", show_defaults=True)
+              help='The server URL of Home Assistant instance.', default=DEFAULT_SERVER, show_default=True, envvar="HASS_SERVER")
+@click.option('--token', 
+              help='The Bearer token for Home Assistant instance.', envvar="HASS_TOKEN")
+@click.option('--timeout',
+              help='Timeout for network operations.', default=DEFAULT_TIMEOUT)
+@click.option('--output', '-o',
+              help="Output format", type=click.Choice(['json', 'yaml']), default="json", show_default=True )
 @click.option('-v', '--verbose', is_flag=True,
               help='Enables verbose mode.')
 @pass_context
-def cli(ctx, verbose, server):
+def cli(ctx, verbose, server, token, output, timeout):
     """A command line interface for Home Assistant."""
-    import requests
-
+    
     ctx.verbose = verbose
     ctx.server = server
+    ctx.token = token
+    ctx.timeout = timeout
+    ctx.output = output 

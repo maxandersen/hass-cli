@@ -5,29 +5,33 @@ The Home Assistant Command-line interface (``hass-cli``) allows one to
 work with a local or a remote `Home Assistant <https://home-assistant.io>`_
 instance directly from the command-line.
 
+Examples:
+
 .. code:: bash
+hass-cli 
 
-   $ hass-cli
-    Usage: hass-cli [OPTIONS] COMMAND [ARGS]...
+.. code:: bash
+Usage: hass-cli [OPTIONS] COMMAND [ARGS]...
 
-      A command line interface for Home Assistant.
+  A command line interface for Home Assistant.
 
-    Options:
-      --version            Show the version and exit.
-      -s, --server TEXT      The IP address of Home Assistant instance.
-      -t, --token TEXT  The API password of Home Assistant instance.
-      -v, --verbose        Enables verbose mode.
-      --help               Show this message and exit.
+Options:
+  --version                 Show the version and exit.
+  -s, --server TEXT         The server URL of Home Assistant instance.
+                            [default: http://localhost:8123]
+  --token TEXT              The Bearer token for Home Assistant instance.
+  --timeout INTEGER         Timeout for network operations.
+  -o, --output [json|yaml]  Output format  [default: json]
+  -v, --verbose             Enables verbose mode.
+  --help                    Show this message and exit.
 
-    Commands:
-      discovery  Discovery for the local network.
-      info       Get configuration details.
-      list       List various entries of an instance.
-      notify     Send a notification with a given service.
-      state      Get, set or remove the state of entity.
-      status     Show the status of an instance.
-
-This tool is in ALPHA stage or a so-called prototype.
+Commands:
+  discover  Discovery for the local network.
+  edit      list info from Home Assistant
+  get       list info from Home Assistant
+  info      Get basic info from Home Assistant using /api/discovery_info.
+  raw       call raw api (advanced)
+  toggle    toggle data from Home Assistant
 
 Clone the git repository and 
 

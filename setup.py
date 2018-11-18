@@ -12,6 +12,7 @@ REQUIRES = [
     'homeassistant',
     'netdisco',
     'tabulate',
+    'jsonpath-rw'
 ]
 
 setup(

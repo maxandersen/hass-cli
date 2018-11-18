@@ -1,5 +1,0 @@
-# Home Assistant CLI requirements
-click
-homeassistant
-netdisco
-tabulate
