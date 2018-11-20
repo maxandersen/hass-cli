@@ -3,7 +3,7 @@ import click
 
 
 from homeassistant_cli.cli import pass_context
-
+from homeassistant_cli.helper import format_output
 
 @click.command('discover')
 @click.option('--raw', is_flag=True, help="Include raw data found during scan.")
@@ -17,9 +17,11 @@ def cli(ctx,raw):
     netdiscovery.scan()
 
     for device in netdiscovery.discover():
-        print(device, netdiscovery.get_info(device))
+        info = netdiscovery.get_info(device)
+        click.echo("{}:\n{}".format(device, format_output(ctx, info)))
 
     if raw:
+        click.echo("Raw data:")
         netdiscovery.print_raw_data()
 
     netdiscovery.stop()

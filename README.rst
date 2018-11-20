@@ -93,7 +93,18 @@ Once enable there is autocompletion for commands and for certain attributes like
   light.kitchen_light_6          light.basement_light_1         light.basement_light_7         light.dinner_table_light_1     light.dinner_table_light_6     light.hallroom_light_4
   light.guestroom_light          light.basement_light_stairs    light.basement_light_2         light.hallroom_light_5         light.dinner_table_light_3     light.winter_garden_light_5
   light.hallroom_light_3         light.basement_light_3         light.basement_light_8         light.dinner_table_light_2     light.winter_garden_light_1    light.kitchen_light_3
-...
+
+..
+
+Note: For this to work you'll need to have setup the following environment variables if your home-assistant
+is secured and not running on localhost:8123:
+
+.. code:: bash
+ 
+   export HASS_SERVER=https://hassio.local:8123
+   export HASS_TOKEN=<Bearer token from HASS_SERVER/profile>
+
+..
 
 help
 ####

@@ -41,7 +41,6 @@ def req_raw(ctx, method, endpoint, *args):
     if method == 'get':
 
         response = requests.get(url, headers=headers, timeout=ctx.timeout)
-        response.raise_for_status()
         return response
 
     elif method == 'post':
@@ -53,13 +52,17 @@ def req_raw(ctx, method, endpoint, *args):
             response = requests.post(url, headers=headers,
                             timeout=ctx.timeout)
 
-        response.raise_for_status()
+        return response
+    elif method == 'delete':
+        response = requests.delete(url, headers=headers, timeout=ctx.timeout)
         return response
     else:   
         raise ValueError("Unsupported method " + method)
 
 def req(ctx, method, endpoint, *args):
     resp = req_raw(ctx, method, endpoint, *args)
+
+    resp.raise_for_status()
 
     if resp:
         return resp.json()

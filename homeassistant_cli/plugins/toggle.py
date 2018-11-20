@@ -7,13 +7,16 @@ import click
 from homeassistant_cli.cli import pass_context
 from homeassistant_cli.helper import req, req_raw, format_output
 
+import homeassistant_cli.autocompletion as autocompletion
+
+
 @click.group('toggle')
 @pass_context
 def cli(ctx):
     """toggle data from Home Assistant"""
 
 @cli.command()
-@click.argument('entities', nargs=-1, required=True)
+@click.argument('entities', nargs=-1, required=True, autocompletion=autocompletion.entities)
 @pass_context
 def state(ctx, entities):
     """toggle state from Home Assistant"""
