@@ -21,22 +21,14 @@ def cli(ctx):
 def state(ctx, entities):
     """toggle state from Home Assistant"""
     for entity in entities:
-        res = req(ctx, "get", "states/{}".format(entity))
-        
-        state = res["state"]
-        flip = {
-            "on" : "off",
-            "off": "on",
-            "true": "false",
-            "false": "true"
-            }
-
-        if state in flip:
-            newstate = flip[state]
-            click.echo("Toggling from {} to {}".format(state,newstate))
-            res["state"] = flip[state]
             import json
-            response = req_raw(ctx,"post", "states/{}".format(entity), json.dumps(res))
-       
-        else:
-            click.echo("Do not know how to toggle state `{}` for `{}`".format(state,entity))
+            data = {
+                "entity_id" : entity
+            }
+            click.echo("Toggling {}".format(entity))
+            response = req_raw(ctx,"post", "services/homeassistant/toggle", json.dumps(data))
+            if response.ok:
+                result = response.json()
+                click.echo(format_output(ctx,response.json()))
+                click.echo("{} entities toggled".format(len(result)))
+                

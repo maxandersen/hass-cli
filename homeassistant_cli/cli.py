@@ -6,6 +6,7 @@ import click
 
 from homeassistant_cli.const import DEFAULT_SERVER, DEFAULT_TIMEOUT, PACKAGE_NAME, __version__
 from homeassistant_cli.config import Configuration
+from homeassistant_cli.helper import debug_requests_on
 
 CONTEXT_SETTINGS = dict(auto_envvar_prefix='HOMEASSISTANT')
 
@@ -49,8 +50,10 @@ class HomeAssistantCli(click.MultiCommand):
               help="Output format", type=click.Choice(['json', 'yaml']), default="json", show_default=True )
 @click.option('-v', '--verbose', is_flag=True,
               help='Enables verbose mode.')
+@click.option('--debug', is_flag=True, default=False,
+              help='Enables debug mode.')
 @pass_context
-def cli(ctx, verbose, server, token, output, timeout):
+def cli(ctx, verbose, server, token, output, timeout, debug):
     """A command line interface for Home Assistant."""
     
     ctx.verbose = verbose
@@ -58,3 +61,7 @@ def cli(ctx, verbose, server, token, output, timeout):
     ctx.token = token
     ctx.timeout = timeout
     ctx.output = output 
+    ctx.debug = debug
+
+    if debug:
+        debug_requests_on()
