@@ -30,5 +30,5 @@ def state(ctx, entities):
             if response.ok:
                 result = response.json()
                 click.echo(format_output(ctx,response.json()))
-                click.echo("{} entities toggled".format(len(result)))
+                click.echo("{} entities reported to be toggled".format(len(result)))
                 
